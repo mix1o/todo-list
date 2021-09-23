@@ -1,0 +1,5 @@
+@import './stylesheets/abstracts/colors.css';
+
+.text {
+  color: var(--primary-orange);
+}

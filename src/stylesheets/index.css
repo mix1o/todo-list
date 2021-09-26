@@ -1,9 +1,16 @@
+@import '../stylesheets/abstracts/colors.css';
+
 *,
 *::after,
 *::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  font-family: 'Roboto';
+  font-size: 10px;
 }
 
 body {

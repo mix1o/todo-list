@@ -37,7 +37,7 @@ const List = ({ setOpenList, refreshLists }) => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.jwt}`,
+          Authorization: `Bearer ${user}`,
         },
       }
     );
@@ -67,7 +67,7 @@ const List = ({ setOpenList, refreshLists }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.jwt}`,
+          Authorization: `Bearer ${user}`,
         },
         body: JSON.stringify(list),
       });
@@ -83,7 +83,7 @@ const List = ({ setOpenList, refreshLists }) => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.jwt}`,
+          Authorization: `Bearer ${user}`,
         },
         body: JSON.stringify(list),
       });
@@ -96,7 +96,7 @@ const List = ({ setOpenList, refreshLists }) => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${user.jwt}`,
+        Authorization: `Bearer ${user}`,
       },
     });
 

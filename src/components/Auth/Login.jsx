@@ -23,14 +23,14 @@ const Login = () => {
     });
 
     const json = await response.json();
-
+    console.log(json);
     if (json.statusCode === 400) {
       setMessage(json.message[0].messages[0].message);
       return;
     }
 
     if (json.jwt) {
-      setCookie('user', json);
+      setCookie('user', json.jwt);
       history.push('/dashboard');
       return;
     }

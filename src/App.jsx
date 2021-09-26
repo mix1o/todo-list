@@ -16,13 +16,13 @@ const App = () => {
     <>
       <Router>
         <Switch>
-          <Route exact path="/dashboard">
+          <Route exact path={`${process.env.REACT_APP_URL}dashboard`}>
             {user ? <Dashboard /> : <Redirect to="/" />}
           </Route>
-          <Route exact path="/registration">
+          <Route exact path={`${process.env.REACT_APP_URL}registration`}>
             {user ? <Redirect to="/dashboard" /> : <SignUp />}
           </Route>
-          <Route exact path="/">
+          <Route exact path={`${process.env.REACT_APP_URL}`}>
             {user ? <Redirect to="/dashboard" /> : <Login />}
           </Route>
         </Switch>

@@ -1,2 +1,0 @@
-(this["webpackJsonptodo-rekrutacja"]=this["webpackJsonptodo-rekrutacja"]||[]).push([[0],{10:function(t,e,c){},11:function(t,e,c){"use strict";c.r(e);var n=c(1),o=c.n(n),r=c(3),s=c.n(r),i=c(4),a=c.n(i),d=c(0),j=function(){return Object(d.jsx)("div",{children:Object(d.jsx)("h1",{className:a.a.text,children:"To do list"})})};c(10);s.a.render(Object(d.jsx)(o.a.StrictMode,{children:Object(d.jsx)(j,{})}),document.getElementById("root"))},4:function(t,e,c){t.exports={text:"App_text__2ccZH"}}},[[11,1,2]]]);
-//# sourceMappingURL=main.a18bcca5.chunk.js.map

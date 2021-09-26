@@ -14,7 +14,7 @@ const App = () => {
   const { user } = cookies;
   return (
     <>
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router>
         <Switch>
           <Route exact path="/dashboard">
             {user ? <Dashboard /> : <Redirect to="/" />}

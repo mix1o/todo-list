@@ -1,0 +1,26 @@
+.label {
+  margin-top: 3rem;
+  width: 60%;
+}
+.label:nth-child(2) {
+  margin-top: 7rem;
+}
+.field {
+  background: var(--primary-light);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 0.8rem 0.5rem;
+  border: none;
+  border-radius: 0.8rem;
+  width: 100%;
+  font-family: 'Roboto';
+  font-size: 2.4rem;
+}
+.field::placeholder {
+  color: var(--text-color-gray);
+}
+.error {
+  text-align: center;
+  color: var(--warning);
+  margin-top: 0.5rem;
+  font-size: 1.7rem;
+}

@@ -1,6 +1,6 @@
 import { useCookies } from 'react-cookie';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Redirect,
@@ -14,15 +14,15 @@ const App = () => {
   const { user } = cookies;
   return (
     <>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Switch>
-          <Route exact path={`${process.env.REACT_APP_URL}dashboard`}>
+          <Route exact path="/dashboard">
             {user ? <Dashboard /> : <Redirect to="/" />}
           </Route>
-          <Route exact path={`${process.env.REACT_APP_URL}registration`}>
+          <Route exact path="/registration">
             {user ? <Redirect to="/dashboard" /> : <SignUp />}
           </Route>
-          <Route exact path={`${process.env.REACT_APP_URL}`}>
+          <Route exact path="/">
             {user ? <Redirect to="/dashboard" /> : <Login />}
           </Route>
         </Switch>

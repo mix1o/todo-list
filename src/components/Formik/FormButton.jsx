@@ -2,7 +2,7 @@ import styles from './FormButton.module.css';
 
 const FormButton = ({ text }) => {
   return (
-    <button type="submit" className={styles.btn}>
+    <button data-testid="btn-auth" type="submit" className={styles.btn}>
       {text}
     </button>
   );

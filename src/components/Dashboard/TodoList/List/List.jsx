@@ -108,7 +108,7 @@ const List = ({ setOpenList, refreshLists }) => {
   }, []);
 
   return (
-    <div className={styles.create}>
+    <div data-testid="list" className={styles.create}>
       <div>
         <label className={styles.label}>
           <input
@@ -117,6 +117,7 @@ const List = ({ setOpenList, refreshLists }) => {
             className={styles.field}
             type="text"
             value={list.name}
+            data-testid="input"
           />
         </label>
         <div className={styles.containerTodos}>
@@ -152,6 +153,7 @@ const List = ({ setOpenList, refreshLists }) => {
                 onChange={e =>
                   setSingleTask({ ...singleTask, name: e.target.value })
                 }
+                data-testid="input"
               />
             </div>
             <div className={styles.containerButtons}>

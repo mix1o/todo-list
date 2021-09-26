@@ -19,7 +19,9 @@ const Todo = ({ name, isDone, id, list, setList }) => {
       >
         {isDone && <i className="fas fa-check" />}
       </button>
-      <p className={styles.task}>{name}</p>
+      <p data-testid="todo-name" className={styles.task}>
+        {name}
+      </p>
     </div>
   );
 };

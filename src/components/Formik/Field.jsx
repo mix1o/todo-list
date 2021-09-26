@@ -14,8 +14,15 @@ const Field = ({ ...rest }) => {
       onBlur={() => setFocus(!focus)}
       className={styles.label}
     >
-      <input {...rest} {...field} className={styles.field} />
-      <p className={styles.error}>{error}</p>
+      <input
+        {...rest}
+        {...field}
+        className={styles.field}
+        data-testid="input"
+      />
+      <p data-testid="message-validation" className={styles.error}>
+        {error}
+      </p>
     </label>
   );
 };

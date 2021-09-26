@@ -30,10 +30,15 @@ const SingleList = ({ name, published_at, id, task, setOpenList }) => {
         setOpenList(true);
       }}
       className={styles.list}
+      data-testid="list"
     >
-      <h5 className={styles.name}>{name}</h5>
+      <h5 data-testid="name-of-list" className={styles.name}>
+        {name}
+      </h5>
       <p className={styles.listDate}>Created at: {formatDate()}</p>
-      <p className={styles.count}>{countTasks()}</p>
+      <p data-testid="count-list" className={styles.count}>
+        {countTasks()}
+      </p>
     </div>
   );
 };

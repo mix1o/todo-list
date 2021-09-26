@@ -1,7 +1,7 @@
 import { useCookies } from 'react-cookie';
 import styles from './Header.module.css';
 
-const Header = ({ openList }) => {
+const Header = () => {
   const [cookies, , removeCookie] = useCookies();
 
   const { user } = cookies;
@@ -10,7 +10,7 @@ const Header = ({ openList }) => {
   };
 
   return (
-    <header className={`${styles.header} ${openList ? styles.blur : null}`}>
+    <header className={styles.header}>
       <div>
         <h2 className={styles.name}>ToDo-List</h2>
       </div>

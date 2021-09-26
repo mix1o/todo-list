@@ -16,39 +16,42 @@ const SignUp = () => {
   console.log(process.env.REACT_APP_API);
   const history = useHistory();
 
-  const createAccount = values => {
+  const createAccount = async values => {
     const user = {
       username: values.username,
       email: values.email,
       password: values.password,
     };
 
-    fetch(`${process.env.REACT_APP_API}/auth/local/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-      .then(res => res.json())
-      .then(json => {
-        if (json.statusCode === 400) {
-          setStatus({
-            type: 'invalid',
-            message: json.message[0].messages[0].message,
-          });
-        }
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/auth/local/register`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      }
+    );
 
-        if (json.jwt) {
-          setStatus({
-            type: 'valid',
-            message: 'Your account has been created',
-          });
-          setTimeout(() => {
-            history.push('/');
-          }, 1500);
-        }
+    const json = await response.json();
+
+    if (json.statusCode === 400) {
+      setStatus({
+        type: 'invalid',
+        message: json.message[0].messages[0].message,
       });
+    }
+
+    if (json.jwt) {
+      setStatus({
+        type: 'valid',
+        message: 'Your account has been created',
+      });
+      setTimeout(() => {
+        history.push('/');
+      }, 1500);
+    }
   };
 
   return (

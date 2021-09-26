@@ -12,26 +12,28 @@ const Login = () => {
   const [message, setMessage] = useState('');
   const history = useHistory();
 
-  const signIn = values => {
-    fetch(`${process.env.REACT_APP_API}/auth/local`, {
+  const signIn = async values => {
+    const response = await fetch(`${process.env.REACT_APP_API}/auth/local`, {
       method: 'POST',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(values),
-    })
-      .then(res => res.json())
-      .then(json => {
-        if (json.statusCode === 400) {
-          setMessage(json.message[0].messages[0].message);
-        }
+    });
 
-        if (json.jwt) {
-          setCookie('user', json);
-          history.push('/dashboard');
-        }
-      });
+    const json = await response.json();
+
+    if (json.statusCode === 400) {
+      setMessage(json.message[0].messages[0].message);
+      return;
+    }
+
+    if (json.jwt) {
+      setCookie('user', json);
+      history.push('/dashboard');
+      return;
+    }
   };
 
   return (
@@ -46,7 +48,9 @@ const Login = () => {
           onSubmit={values => signIn(values)}
         >
           <Form className={styles.form}>
-            <h3 className={styles.formText}>Login</h3>
+            <h3 className={styles.formText} data-testid="headline">
+              Login
+            </h3>
             <Field
               name="identifier"
               type="text"

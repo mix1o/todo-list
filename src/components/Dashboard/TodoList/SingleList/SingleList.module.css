@@ -28,3 +28,20 @@
 .count {
   justify-self: end;
 }
+@media only screen and (max-width: 1200px) {
+  .list {
+    font-size: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .name {
+    font-size: 2rem;
+  }
+  .listDate {
+    justify-self: end;
+    font-size: 1.8rem;
+  }
+  .count {
+    justify-self: start;
+    font-size: 1.5rem;
+  }
+}

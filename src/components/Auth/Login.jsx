@@ -23,13 +23,12 @@ const Login = () => {
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json);
         if (json.statusCode === 400) {
           setMessage(json.message[0].messages[0].message);
         }
 
         if (json.jwt) {
-          setCookie('user', json, { path: '/' });
+          setCookie('user', json);
           history.push('/dashboard');
         }
       });

@@ -71,3 +71,18 @@
 .select {
   text-align: center;
 }
+.blur {
+  filter: blur(5px);
+}
+
+@media only screen and (max-width: 1200px) {
+  .main {
+    width: 100%;
+  }
+  .label {
+    width: 60%;
+  }
+  .labelSelect {
+    width: 30%;
+  }
+}

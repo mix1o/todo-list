@@ -11,36 +11,55 @@ const Dashboard = () => {
   const { user } = cookies;
 
   const [, actions] = useSweetState();
-  const [openCreateList, setOpenCreateList] = useState(false);
+  const [openList, setOpenList] = useState(false);
 
   const [searchKeyWord, setSearchKeyWord] = useState('');
   const [sortOption, setSortOption] = useState('Sort by');
 
   const [lists, setLists] = useState([]);
 
-  const getLists = () => {
-    fetch(`${process.env.REACT_APP_API}/to-do-lists`, {
+  const getLists = async () => {
+    const response = await fetch(`${process.env.REACT_APP_API}/to-do-lists`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user.jwt}`,
       },
-    })
-      .then(res => res.json())
-      .then(json => setLists(json));
+    });
+
+    const json = await response.json();
+
+    setLists(json);
   };
 
   const handleSearchLists = list => {
     return list.name.toLowerCase().includes(searchKeyWord.toLowerCase());
   };
 
+  const filterByStatus = (firstElement, secondElement) => {
+    const firstCompleted = firstElement.task.filter(
+      todo => todo.isDone === true
+    );
+    const secondCompleted = secondElement.task.filter(
+      todo => todo.isDone === true
+    );
+
+    return { firstCompleted, secondCompleted };
+  };
+
   const handleSortLists = (firstElement, secondElement) => {
+    const completed = filterByStatus(firstElement, secondElement);
     switch (sortOption) {
       case 'completed':
-        return;
+        return (
+          completed.secondCompleted.length - completed.firstCompleted.length
+        );
 
       case 'uncompleted':
-        return;
+        return (
+          completed.firstCompleted.length - completed.secondCompleted.length
+        );
+
       case 'latest':
         return new Date(firstElement.published_at) >
           new Date(secondElement.published_at)
@@ -54,18 +73,16 @@ const Dashboard = () => {
   useEffect(() => {
     getLists();
   }, []);
+
   return (
     <>
-      <Header openCreateList={openCreateList} />
-      {openCreateList && (
-        <List refreshLists={getLists} setOpenCreateList={setOpenCreateList} />
-      )}
+      <Header openList={openList} />
+      {openList && <List refreshLists={getLists} setOpenList={setOpenList} />}
       <section
         onClick={() => {
-          if (openCreateList) setOpenCreateList(false);
+          if (openList) setOpenList(false);
         }}
-        style={openCreateList ? { filter: 'blur(3px)' } : {}}
-        className={styles.dashboard}
+        className={`${styles.dashboard} ${openList ? styles.blur : null}`}
       >
         <div className={styles.main}>
           <div className={styles.header}>
@@ -106,8 +123,8 @@ const Dashboard = () => {
                     name={name}
                     published_at={published_at}
                     task={task}
-                    setOpenCreateList={setOpenCreateList}
-                    openCreateList={openCreateList}
+                    setOpenList={setOpenList}
+                    openList={openList}
                   />
                 );
               })}
@@ -116,7 +133,7 @@ const Dashboard = () => {
             <button
               onClick={() => {
                 actions.getId(null, true);
-                if (!openCreateList) setOpenCreateList(true);
+                if (!openList) setOpenList(true);
               }}
               className={styles.btn}
             ></button>

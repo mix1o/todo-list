@@ -4,7 +4,7 @@ import { useCookies } from 'react-cookie';
 import Todo from './Todo/Todo';
 import { useSweetState } from '../../../../store/sub';
 
-const List = ({ setOpenCreateList, refreshLists }) => {
+const List = ({ setOpenList, refreshLists }) => {
   const [state] = useSweetState();
 
   const [list, setList] = useState({
@@ -30,70 +30,83 @@ const List = ({ setOpenCreateList, refreshLists }) => {
     }
   };
 
-  const getSingleList = () => {
-    fetch(`${process.env.REACT_APP_API}/to-do-lists/${listData.id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${user.jwt}`,
-      },
-    })
-      .then(res => res.json())
-      .then(json => setList({ name: json.name, task: json.task }));
+  const getSingleList = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/to-do-lists/${listData.id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.jwt}`,
+        },
+      }
+    );
+
+    const json = await response.json();
+    setList({ name: json.name, task: json.task });
   };
 
-  const handleCreateList = () => {
+  const checkNameIsNotEmpty = x => {
     if (list.name.length > 0) {
-      fetch(`${process.env.REACT_APP_API}/to-do-lists`, {
+      return true;
+    } else {
+      setMessage('Name of list cannot be empty');
+      return false;
+    }
+  };
+
+  const closeAndUpdate = () => {
+    refreshLists();
+    setOpenList(false);
+  };
+
+  const handleCreateList = async () => {
+    const correct = checkNameIsNotEmpty();
+    if (correct) {
+      await fetch(`${process.env.REACT_APP_API}/to-do-lists`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${user.jwt}`,
         },
         body: JSON.stringify(list),
-      })
-        .then(res => res.json())
-        .then(() => {
-          refreshLists();
-        });
-    } else {
-      setMessage('Name of list cannot be empty');
+      });
+
+      closeAndUpdate();
     }
   };
 
-  const handleUpdateList = () => {
-    fetch(`${process.env.REACT_APP_API}/to-do-lists/${state.data.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${user.jwt}`,
-      },
-      body: JSON.stringify(list),
-    })
-      .then(res => res.json())
-      .then(json => setList({ name: json.name, task: json.task }));
+  const handleUpdateList = async () => {
+    const correct = checkNameIsNotEmpty();
+    if (correct) {
+      await fetch(`${process.env.REACT_APP_API}/to-do-lists/${state.data.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.jwt}`,
+        },
+        body: JSON.stringify(list),
+      });
+      closeAndUpdate();
+    }
   };
 
-  const handleDeleteList = () => {
-    fetch(`${process.env.REACT_APP_API}/to-do-lists/${state.data.id}`, {
+  const handleDeleteList = async () => {
+    await fetch(`${process.env.REACT_APP_API}/to-do-lists/${state.data.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user.jwt}`,
       },
-    })
-      .then(res => res.json())
-      .then(() => {
-        refreshLists();
-        setOpenCreateList(false);
-      });
+    });
+
+    closeAndUpdate();
   };
 
   useEffect(() => {
     if (state.data.id !== null) getSingleList();
   }, []);
 
-  console.log(list.task);
   return (
     <div className={styles.create}>
       <div>
@@ -160,15 +173,17 @@ const List = ({ setOpenCreateList, refreshLists }) => {
         </div>
       </div>
       <div className={styles.action}>
-        <button
-          className={`${styles.btn} ${styles.delete}`}
-          onClick={handleDeleteList}
-        >
-          Delete
-        </button>
+        {!listData.isNew && (
+          <button
+            className={`${styles.btn} ${styles.delete}`}
+            onClick={handleDeleteList}
+          >
+            Delete
+          </button>
+        )}
         <button
           onClick={() => {
-            setOpenCreateList(false);
+            setOpenList(false);
           }}
           className={`${styles.btn} ${styles.close}`}
         >
@@ -177,8 +192,6 @@ const List = ({ setOpenCreateList, refreshLists }) => {
         <button
           onClick={() => {
             listData.isNew ? handleCreateList() : handleUpdateList();
-
-            setOpenCreateList(false);
           }}
           className={`${styles.btn} ${styles.add}`}
         >

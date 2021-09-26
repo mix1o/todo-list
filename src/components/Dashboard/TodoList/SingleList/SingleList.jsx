@@ -1,7 +1,7 @@
 import styles from './SingleList.module.css';
 import { useSweetState } from '../../../../store/sub';
 
-const SingleList = ({ name, published_at, id, task, setOpenCreateList }) => {
+const SingleList = ({ name, published_at, id, task, setOpenList }) => {
   const formatDate = () => {
     const date = new Date(published_at);
     const year = date.getFullYear();
@@ -27,7 +27,7 @@ const SingleList = ({ name, published_at, id, task, setOpenCreateList }) => {
     <div
       onClick={() => {
         actions.getId(id, false);
-        setOpenCreateList(true);
+        setOpenList(true);
       }}
       className={styles.list}
     >

@@ -10,6 +10,7 @@
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 0.8rem;
 }
+
 .formText {
   font-size: 6.4rem;
   color: var(--primary-orange);
@@ -51,4 +52,10 @@
 }
 .success {
   color: var(--light-green);
+}
+
+@media only screen and (max-width: 1200px) {
+  .container {
+    min-width: 90%;
+  }
 }

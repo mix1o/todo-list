@@ -6,7 +6,7 @@
   width: 70%;
   background-color: var(--secondary-dark);
   min-height: 80vh;
-  max-height: 90vh;
+  max-height: 80vh;
   overflow-y: scroll;
   z-index: 10;
   display: flex;
@@ -132,4 +132,9 @@
   margin-top: 2rem;
   color: var(--warning);
   font-size: 2rem;
+}
+@media only screen and (max-width: 1200px) {
+  .create {
+    width: 90%;
+  }
 }

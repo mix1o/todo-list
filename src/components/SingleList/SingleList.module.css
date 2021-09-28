@@ -1,7 +1,8 @@
 .list {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* grid-template-columns: repeat(3, 1fr); */
+  grid-template-columns: repeat(3, minmax(15rem, 1fr));
   align-items: center;
   padding: 3.4rem 3.6rem;
   background-color: var(--secondary-dark);
@@ -12,6 +13,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
   border-radius: 0.8rem;
+  text-decoration: none;
 }
 .list:first-child {
   margin-top: 7.7rem;
@@ -24,6 +26,8 @@
 }
 .name {
   font-weight: bold;
+  word-wrap: break-word;
+  max-width: 70%;
 }
 .count {
   justify-self: end;
@@ -35,14 +39,22 @@
   }
   .name {
     font-size: 2rem;
+    max-width: 100%;
+    grid-column: 1/-1;
   }
   .listDate {
     justify-self: end;
     font-size: 1.8rem;
+    grid-row: 2/3;
+    grid-column: 2/3;
+    margin-top: 1rem;
   }
   .count {
+    margin-top: 1rem;
     justify-self: start;
     font-size: 1.5rem;
+    grid-row: 2/3;
+    grid-column: 1/2;
   }
 }
 @media only screen and (max-width: 1100px) and (orientation: landscape) {

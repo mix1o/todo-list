@@ -12,6 +12,9 @@
   border: 2px solid var(--primary-dark);
   margin-right: 1rem;
   margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .completed {
   border-color: var(--light-green);

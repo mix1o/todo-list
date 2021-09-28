@@ -2,23 +2,21 @@ import styles from './List.module.css';
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import Todo from '../Todo/Todo';
-import { useSweetState } from '../../store/sub';
 import {
   getSingleList,
   createNewList,
   updateList,
   deleteList,
-} from '../../api/List/listActions';
+} from '../../api/toDoLists';
+import { useHistory } from 'react-router';
 
-const List = ({ setOpenList, refreshLists }) => {
-  const [state] = useSweetState();
-
+const List = ({ setOpenList, refreshLists, id }) => {
   const [list, setList] = useState({
     name: '',
     task: [],
   });
 
-  const listData = state.data;
+  const history = useHistory();
 
   const [message, setMessage] = useState('');
   const [singleTask, setSingleTask] = useState({
@@ -47,6 +45,17 @@ const List = ({ setOpenList, refreshLists }) => {
   const closeAndUpdate = () => {
     refreshLists();
     setOpenList(false);
+    if (id) history.push('/dashboard');
+  };
+
+  const getList = async () => {
+    const data = await getSingleList(user, id);
+    if (data.statusCode === 404) {
+      history.push('/dashboard');
+      setOpenList(false);
+      return;
+    }
+    setList({ name: data.name, task: data.task });
   };
 
   const handleCreateList = async () => {
@@ -60,24 +69,21 @@ const List = ({ setOpenList, refreshLists }) => {
   const handleUpdateList = async () => {
     const correct = checkNameIsNotEmpty();
     if (correct) {
-      await updateList(user, list, state.data.id);
+      await updateList(user, list, id);
       closeAndUpdate();
     }
   };
 
   const handleDeleteList = async () => {
-    await deleteList(user, state.data.id);
+    await deleteList(user, id);
     closeAndUpdate();
   };
 
   useEffect(() => {
-    if (state.data.id !== null) {
-      (async () => {
-        const data = await getSingleList(user, state.data.id);
-        setList({ name: data.name, task: data.task });
-      })();
+    if (id) {
+      getList();
     }
-  }, [state.data.id, user]);
+  }, [id]);
 
   return (
     <div data-testid="list" className={styles.create}>
@@ -145,7 +151,7 @@ const List = ({ setOpenList, refreshLists }) => {
         </div>
       </div>
       <div className={styles.action}>
-        {!listData.isNew && (
+        {id && (
           <button
             className={`${styles.btn} ${styles.btnList} ${styles.delete}`}
             onClick={handleDeleteList}
@@ -156,6 +162,9 @@ const List = ({ setOpenList, refreshLists }) => {
         <button
           onClick={() => {
             setOpenList(false);
+            if (id) {
+              history.push('/dashboard');
+            }
           }}
           className={`${styles.btn} ${styles.btnList} ${styles.close}`}
         >
@@ -163,7 +172,7 @@ const List = ({ setOpenList, refreshLists }) => {
         </button>
         <button
           onClick={() => {
-            listData.isNew ? handleCreateList() : handleUpdateList();
+            !id ? handleCreateList() : handleUpdateList();
           }}
           className={`${styles.btn} ${styles.btnList} ${styles.add}`}
         >

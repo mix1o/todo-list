@@ -6,7 +6,7 @@ import styles from '../SignUp/Auth.module.css';
 import { useCookies } from 'react-cookie';
 import { useState } from 'react';
 import Header from '../../components/Header/Header';
-import { signIn } from '../../api/Login/signIn';
+import { signIn } from '../../api/auth';
 
 const Login = () => {
   const [, setCookie] = useCookies();

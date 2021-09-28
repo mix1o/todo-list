@@ -1,22 +1,14 @@
 import styles from './SingleList.module.css';
-import { useSweetState } from '../../store/sub';
-import { countTasks, formatDate } from '../../functions/SingleList/formats';
+import { countTasks } from '../../functions/countTasks';
+import { formatDate } from '../../functions/formateDate';
+import { Link } from 'react-router-dom';
 
-const SingleList = ({ name, published_at, id, task, setOpenList }) => {
+const SingleList = ({ name, published_at, id, task }) => {
   const date = formatDate(published_at);
   const count = countTasks(task);
 
-  const [, actions] = useSweetState();
-
   return (
-    <div
-      onClick={() => {
-        actions.getId(id, false);
-        setOpenList(true);
-      }}
-      className={styles.list}
-      data-testid="list"
-    >
+    <Link to={`/dashboard/${id}`} className={styles.list} data-testid="list">
       <h5 data-testid="name-of-list" className={styles.name}>
         {name}
       </h5>
@@ -24,7 +16,7 @@ const SingleList = ({ name, published_at, id, task, setOpenList }) => {
       <p data-testid="count-list" className={styles.count}>
         {count}
       </p>
-    </div>
+    </Link>
   );
 };
 

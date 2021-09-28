@@ -16,6 +16,9 @@ const App = () => {
     <>
       <Router>
         <Switch>
+          <Route exact path="/dashboard/:id">
+            {user ? <Dashboard /> : <Redirect to="/" />}
+          </Route>
           <Route exact path="/dashboard">
             {user ? <Dashboard /> : <Redirect to="/" />}
           </Route>

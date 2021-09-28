@@ -67,6 +67,9 @@
   border: 2px solid var(--primary-dark);
   margin-right: 1rem;
   margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .containerButtons {
   text-align: right;
@@ -145,5 +148,8 @@
 @media only screen and (max-width: 1200px) {
   .create {
     width: 90%;
+  }
+  .btnList {
+    font-size: 2.5rem;
   }
 }

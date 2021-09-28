@@ -7,13 +7,20 @@ import {
   screen,
 } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { createMemoryHistory } from 'history';
+import { Router } from 'react-router-dom';
 
 afterEach(() => {
   cleanup();
 });
 
 test('Input search and select correctly change value', () => {
-  render(<Dashboard />);
+  const history = createMemoryHistory();
+  render(
+    <Router history={history}>
+      <Dashboard />
+    </Router>
+  );
   const input = screen.getByTestId('input-search');
 
   const select = screen.getByTestId('select-sort');

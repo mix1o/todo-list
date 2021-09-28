@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { validation } from '../../components/Formik/validationSignUp';
 import { useState } from 'react';
 import Header from '../../components/Header/Header';
-import { registration } from '../../api/SignUp/registration';
+import { registration } from '../../api/auth';
 
 const SignUp = () => {
   const [status, setStatus] = useState({

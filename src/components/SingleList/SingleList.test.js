@@ -1,7 +1,8 @@
 import SingleList from './SingleList';
-
 import { cleanup, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 
 afterEach(() => {
   cleanup();
@@ -15,13 +16,16 @@ test('SingleList display correct values', () => {
     task: [],
   };
 
+  const history = createMemoryHistory();
   render(
-    <SingleList
-      name={fakeList.name}
-      published_at={fakeList.published_at}
-      id={fakeList.id}
-      task={fakeList.task}
-    />
+    <Router history={history}>
+      <SingleList
+        name={fakeList.name}
+        published_at={fakeList.published_at}
+        id={fakeList.id}
+        task={fakeList.task}
+      />
+    </Router>
   );
   const nameOfList = screen.getByTestId('name-of-list');
   const count = screen.getByTestId('count-list');

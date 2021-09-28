@@ -1,19 +1,20 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import { useSweetState } from '../../store/sub';
 import Header from '../../components/Header/Header';
 import styles from './Dashboard.module.css';
 import SingleList from '../../components/SingleList/SingleList';
 import List from '../../components/List/List';
-import { allUserLists } from '../../api/Dashboard/allUserLists';
-import { filterByStatus } from '../../functions/Dashboard/filterByStatus';
+import { allUserLists } from '../../api/toDoLists';
+import { filterByStatus } from '../../functions/filterByStatus';
+import { useParams, useHistory } from 'react-router-dom';
 
 const Dashboard = () => {
   const [cookies] = useCookies();
   const { user } = cookies;
 
-  const [, actions] = useSweetState();
-  const [openList, setOpenList] = useState(false);
+  const { id } = useParams();
+
+  const [openList, setOpenList] = useState();
 
   const [searchKeyWord, setSearchKeyWord] = useState('');
   const [sortOption, setSortOption] = useState('Sort by');
@@ -65,17 +66,28 @@ const Dashboard = () => {
     }
   };
 
+  const history = useHistory();
+
   useEffect(() => {
     getLists();
   }, [getLists]);
 
+  useEffect(() => {
+    if (id) setOpenList(true);
+  }, [id]);
+
   return (
     <>
-      {openList && <List refreshLists={getLists} setOpenList={setOpenList} />}
+      {openList && (
+        <List refreshLists={getLists} setOpenList={setOpenList} id={id} />
+      )}
       {!hasError && (
         <section
           onClick={() => {
-            if (openList) setOpenList(false);
+            if (openList) {
+              setOpenList(false);
+              history.push('/dashboard');
+            }
           }}
           className={`${styles.dashboard} ${openList ? styles.blur : null}`}
         >
@@ -121,8 +133,6 @@ const Dashboard = () => {
                       name={name}
                       published_at={published_at}
                       task={task}
-                      setOpenList={setOpenList}
-                      openList={openList}
                     />
                   );
                 })}
@@ -130,7 +140,6 @@ const Dashboard = () => {
             <div className={styles.containerNewTodo}>
               <button
                 onClick={() => {
-                  actions.getId(null, true);
                   if (!openList) setOpenList(true);
                 }}
                 className={styles.btn}

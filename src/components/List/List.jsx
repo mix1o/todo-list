@@ -28,14 +28,14 @@ const List = ({ setOpenList, refreshLists, id }) => {
   const { user } = cookies;
 
   const handleAddNewTodo = () => {
-    if (singleTask.name.length > 0) {
+    if (singleTask.name.trim().length > 0) {
       setList({ ...list, task: [...list.task, singleTask] });
       setSingleTask({ name: '', isDone: false });
     }
   };
 
   const checkNameIsNotEmpty = () => {
-    if (list.name.length > 0) {
+    if (list.name.trim().length > 0) {
       return true;
     }
     setMessage('Name of list cannot be empty');

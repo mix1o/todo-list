@@ -1,0 +1,34 @@
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+.todo {
+  margin-top: 2rem;
+}
+.square {
+  height: 2.4rem;
+  width: 2.4rem;
+  background-color: transparent;
+  border: 2px solid var(--primary-dark);
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+}
+.completed {
+  border-color: var(--light-green);
+  color: var(--light-green);
+}
+.task {
+  border-bottom: 1px solid var(--primary-orange);
+  width: 100%;
+  color: var(--primary-light);
+  font-size: 2.4rem;
+  margin-left: 1rem;
+  padding-left: 1rem;
+}
+.delete {
+  background-color: transparent;
+  color: var(--warning);
+  font-size: 2.4rem;
+  border: none;
+  cursor: pointer;
+}

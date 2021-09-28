@@ -1,0 +1,72 @@
+.list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  padding: 3.4rem 3.6rem;
+  background-color: var(--secondary-dark);
+  color: var(--primary-light);
+  margin-top: 3.6rem;
+  font-size: 2.4rem;
+  font-family: 'Roboto';
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  border-radius: 0.8rem;
+}
+.list:first-child {
+  margin-top: 7.7rem;
+}
+.list:hover {
+  background-color: var(--primary-orange);
+}
+.listDate {
+  font-style: italic;
+}
+.name {
+  font-weight: bold;
+}
+.count {
+  justify-self: end;
+}
+@media only screen and (max-width: 1200px) {
+  .list {
+    font-size: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .name {
+    font-size: 2rem;
+  }
+  .listDate {
+    justify-self: end;
+    font-size: 1.8rem;
+  }
+  .count {
+    justify-self: start;
+    font-size: 1.5rem;
+  }
+}
+@media only screen and (max-width: 1100px) and (orientation: landscape) {
+  .name {
+    font-size: 3.5rem;
+  }
+  .listDate {
+    font-size: 3rem;
+  }
+  .count {
+    font-size: 2.5rem;
+    margin-top: 1rem;
+  }
+}
+
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+  .name {
+    font-size: 3rem;
+  }
+  .listDate {
+    font-size: 2.5rem;
+  }
+  .count {
+    font-size: 2.2rem;
+    margin-top: 1rem;
+  }
+}

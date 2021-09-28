@@ -5,9 +5,9 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import Login from './components/Auth/Login';
-import SignUp from './components/Auth/SignUp';
-import Dashboard from './components/Dashboard/Dashboard';
+import Login from './pages/Login/Login';
+import SignUp from './pages/SignUp/SignUp';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 const App = () => {
   const [cookies] = useCookies();

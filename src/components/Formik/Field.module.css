@@ -1,9 +1,9 @@
-.label {
+.container {
   margin-top: 3rem;
-  width: 60%;
+  width: 80%;
 }
-.label:nth-child(2) {
-  margin-top: 7rem;
+.container:nth-child(2) {
+  margin-top: 10rem;
 }
 .field {
   background: var(--primary-light);

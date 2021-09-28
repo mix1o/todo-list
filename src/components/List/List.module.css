@@ -1,0 +1,149 @@
+.create {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  background-color: var(--secondary-dark);
+  min-height: 80vh;
+  max-height: 80vh;
+  overflow-y: scroll;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 2rem;
+}
+.containerAddInput {
+  margin-top: 2rem;
+}
+.containerTodos {
+  margin: 3rem 0;
+}
+.label {
+  border-bottom: 4px solid var(--primary-orange);
+  padding-bottom: 3rem;
+  display: block;
+}
+.field {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 0.8rem;
+  border: none;
+  height: 5rem;
+  font-size: 2.4rem;
+  font-family: 'Roboto';
+}
+
+.field::placeholder {
+  color: var(--text-color-gray);
+}
+.fieldAddTask {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--primary-orange);
+  width: 100%;
+  color: var(--primary-light);
+  outline: none;
+  padding: 0 1rem;
+  margin-left: 1rem;
+  font-size: 2.4rem;
+  font-family: 'Roboto';
+}
+.fieldAddTask:focus {
+  border-bottom-color: var(--light-green);
+}
+.fieldAddTask::placeholder {
+  color: var(--text-color-gray-lighter);
+}
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+.square {
+  height: 2.4rem;
+  width: 2.4rem;
+  background-color: transparent;
+  border: 2px solid var(--primary-dark);
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+}
+.containerButtons {
+  text-align: right;
+  margin-top: 1rem;
+}
+.btn {
+  border: none;
+  background-color: transparent;
+  color: var(--primary-light);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 0.8rem;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  width: 8%;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+  font-weight: 500;
+  min-width: fit-content;
+}
+.btnTodo {
+  font-size: 2.4rem;
+}
+.btnList {
+  font-size: 3.6rem;
+  padding: 1rem 3rem;
+}
+.btn:hover {
+  transform: scale(1.1);
+}
+.cancel {
+  margin-right: 4rem;
+  background: var(--warning);
+}
+.add {
+  background-color: var(--primary-orange);
+}
+.action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.close {
+  color: var(--primary-orange);
+  box-shadow: none;
+  margin-left: auto;
+  margin-right: 3rem;
+}
+.delete {
+  background-color: var(--warning);
+  color: var(--primary-light);
+}
+.task {
+  border-bottom: 1px solid var(--primary-orange);
+  width: 100%;
+  color: var(--primary-light);
+  font-size: 2.4rem;
+  margin-left: 1rem;
+  padding-left: 1rem;
+}
+.todo {
+  margin-top: 2rem;
+}
+.completed {
+  border-color: var(--light-green);
+  color: var(--light-green);
+}
+.completed > .fa-check {
+  color: inherit;
+}
+.message {
+  text-align: center;
+  margin-top: 2rem;
+  color: var(--warning);
+  font-size: 2rem;
+}
+@media only screen and (max-width: 1200px) {
+  .create {
+    width: 90%;
+  }
+}

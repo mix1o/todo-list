@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const SingleList = ({ name, published_at, id, task }) => {
   const date = formatDate(published_at);
-  const count = countTasks(task);
+  const { completed, unCompleted, all } = countTasks(task);
 
   return (
     <Link to={`/dashboard/${id}`} className={styles.list} data-testid="list">
@@ -14,7 +14,7 @@ const SingleList = ({ name, published_at, id, task }) => {
       </h5>
       <p className={styles.listDate}>Created at: {date}</p>
       <p data-testid="count-list" className={styles.count}>
-        {count}
+        {`Completed: ${completed} Uncompleted: ${unCompleted} All: ${all}`}
       </p>
     </Link>
   );

@@ -70,6 +70,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .containerButtons {
   text-align: right;
